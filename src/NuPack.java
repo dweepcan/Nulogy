@@ -5,7 +5,9 @@ public class NuPack {
 		Scanner in = new Scanner(System.in);
 
 		double basePrice = Parser.parseBasePrice(in.nextLine().trim()); 
-		
 		System.out.println(basePrice);
+		
+		int workers = Parser.parseWorkers(in.nextLine().trim());
+		System.out.println(workers);	
 	}
 }

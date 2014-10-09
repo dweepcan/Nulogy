@@ -14,7 +14,7 @@ public class Parser {
 			System.exit(1);
 		}
 		
-		double basePrice = 0;
+		double basePrice = 0.0;
 
 		try {
 			basePrice = Double.parseDouble(basePriceNum);
@@ -32,5 +32,48 @@ public class Parser {
 		}
 		
 		return basePrice;
+	}
+	
+	static int parseWorkers(String workersString) {
+		int workersStringSpace = workersString.indexOf(" ");
+
+		if(workersStringSpace == -1) {
+			System.err.println("The number of workers entered does not contain a space between the number and person/people.");
+			System.exit(1);
+		}
+		
+		String workersNum = workersString.substring(0, workersString.indexOf(" "));
+		int workers = 0;
+		
+		try {
+			workers = Integer.parseInt(workersNum);
+		} catch(Exception e) {
+			System.err.println("The number of workers entered is not a integer.");
+			System.exit(1);
+			e.printStackTrace();
+		}
+		
+		if(workers < 0) {
+			System.err.println("The number of workers entered is negative.");
+			System.exit(1);
+		} else if (workers == 0) {
+			System.err.println("The number of workers entered is zero");
+		}
+		
+		String workersAfterNum = workersString.substring(workersString.indexOf(" ")).trim().toLowerCase();
+		
+		if(workersAfterNum.equals("people") && workersAfterNum.equals("person")) {
+			System.err.println("The number of workers entered does not have people or person after the number.");
+			System.exit(1);
+		} else if(workers == 1 && workersAfterNum.equals("people")) {
+			System.err.println("The number of workers entered is 1 people. Please change this to 1 person.");
+			System.exit(1);
+		} else if((workers >=1 || workers == 0) && workersAfterNum.equals("person")) {
+			System.err.println("The number of workers entered has person after the number, even though the number is greater than 1.\n"
+					+ "Please change this to <num> people.");
+			System.exit(1);
+		}
+		
+		return workers;
 	}
 }
