@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * Main class of the program
  *  
- * @author Dweep
+ * @author Dweep Shah
  */
 public class NuPack {
 	public static void main(String[] args) {
@@ -15,20 +15,23 @@ public class NuPack {
 		
 		// Parse the given basePrice to get the double value
 		double basePrice = Parser.parseBasePrice(input); 
-		System.out.println(basePrice);
 		
 		// Ignore any blank lines entered
 		input = Parser.removeBlankLines(in, in.nextLine().trim());
 		
 		// Parse the given workers value to get the integer value
 		int workers = Parser.parseWorkers(input);
-		System.out.println(workers);
 		
 		// Ignore any blank lines entered
 		input = Parser.removeBlankLines(in, in.nextLine().trim());
 		
 		// Store the value entered for material
-		String material = in.nextLine().trim();
-		System.out.println(material);
+		String material = input.toLowerCase();
+		
+		// Calculate the total markup value given the corresponding input
+		double total = MarkupCalculator.calculate(basePrice, workers, material);
+		
+		//Formats the output to 2 decimal places and prints the output
+		System.out.println("$" + String.format("%.2f", total));
 	}
 }

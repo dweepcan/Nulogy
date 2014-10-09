@@ -20,9 +20,11 @@ public class Parser {
 			System.err.println("The base price entered does not begin with a $ sign.");
 			System.exit(1);
 		}
-
+		
+		// Removing the $ sign form the string of base price
 		String basePriceNum = basePriceString.substring(1, basePriceString.length());
-
+		
+		// Finding the location of the decimal point in the base price value
 		int basePriceDecimal = basePriceNum.indexOf('.');
 
 		// Check if the base price entered is a dollar amount with 2 decimals.
@@ -64,17 +66,22 @@ public class Parser {
 	 * @return parsed worker value after converting to integer
 	 */
 	public static int parseWorkers(String workersString) {
+		// Finding the location of the space in the workers value
 		int workersStringSpace = workersString.indexOf(" ");
-
+		
+		// Check if the workers value entered has a space between the number and person/people. 
 		if(workersStringSpace == -1) {
 			System.err.println("The number of workers entered does not contain a space between the number and person/people.");
 			System.exit(1);
 		}
 		
+		// Removing the numerical value of the number of workers from the string
 		String workersNum = workersString.substring(0, workersString.indexOf(" "));
 		int workers = 0;
 		
+		// Check if the workers value entered is a whole number. 
 		try {
+			// Convert the worker value given to a integer.
 			workers = Integer.parseInt(workersNum);
 		} catch(Exception e) {
 			System.err.println("The number of workers entered is not a integer.");
@@ -82,22 +89,31 @@ public class Parser {
 			e.printStackTrace();
 		}
 		
+		// Check if the workers value entered is negative.
 		if(workers < 0) {
 			System.err.println("The number of workers entered is negative.");
 			System.exit(1);
-		} else if (workers == 0) {
+		} 
+		// Check if the workers value entered is zero. 
+		else if (workers == 0) {
 			System.err.println("The number of workers entered is zero");
 		}
 		
+		// Removing the word part of the number of workers value given (i.e. people/person)
 		String workersAfterNum = workersString.substring(workersString.indexOf(" ")).trim().toLowerCase();
 		
+		// Check if the workers value entered is contains a word other than people or person after the number. 
 		if(!workersAfterNum.equals("people") && !workersAfterNum.equals("person")) {
 			System.err.println("The number of workers entered does not have people or person after the number.");
 			System.exit(1);
-		} else if(workers == 1 && workersAfterNum.equals("people")) {
+		} 
+		// Check if the workers value entered is 1 people, which should be 1 person.
+		else if(workers == 1 && workersAfterNum.equals("people")) {
 			System.err.println("The number of workers entered is 1 people. Please change this to 1 person.");
 			System.exit(1);
-		} else if((workers >=1 || workers == 0) && workersAfterNum.equals("person")) {
+		} 
+		// Check if the workers value entered is multiple person, which should be multiple people.
+		else if((workers > 1 || workers == 0) && workersAfterNum.equals("person")) {
 			System.err.println("The number of workers entered has person after the number, even though the number is greater than 1.\n"
 					+ "Please change this to <num> people.");
 			System.exit(1);
@@ -115,9 +131,12 @@ public class Parser {
 	 * @return the first non empty line read by the input reader
 	 */
 	public static String removeBlankLines(Scanner in, String input) {
+		// Check if the line read from input reader is blank
 		while(input.length() == 0) {
+			// Read the next line
 			input = in.nextLine().trim();
 		}
+		// Return the first non-empty line
 		return input;
 	}
 }
