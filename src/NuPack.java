@@ -1,3 +1,4 @@
+import java.io.InputStream;
 import java.util.Scanner;
 
 /**
@@ -6,7 +7,8 @@ import java.util.Scanner;
  * @author Dweep Shah
  */
 public class NuPack {
-	public static void main(String[] args) {
+
+	public static void main(String[] args) throws Exception {
 		// Initialize standard input
 		Scanner in = new Scanner(System.in);
 		
@@ -25,8 +27,8 @@ public class NuPack {
 		// Ignore any blank lines entered
 		input = Parser.removeBlankLines(in, in.nextLine().trim());
 		
-		// Store the value entered for material
-		String material = input.toLowerCase();
+		// Parse the given material value to get the String value
+		String material = Parser.parseMaterial(input);
 		
 		// Calculate the total markup value given the corresponding input
 		double total = MarkupCalculator.calculate(basePrice, workers, material);
